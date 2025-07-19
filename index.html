@@ -1,42 +1,212 @@
 <!doctype html>
 <html>
 <head>
-<title> calculator</title>
-<link type="text/css" rel="stylesheet" href="stylesheet.css">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        .calc {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            font-size: 24px;
+            text-align: right;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btndesign, .operator, #zero {
+            width: 70px;
+            height: 60px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btndesign {
+            background: linear-gradient(145deg, #f0f0f0, #d4d4d4);
+            color: #333;
+        }
+
+        .operator {
+            background: linear-gradient(145deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        #zero {
+            width: 150px;
+            background: linear-gradient(145deg, #f0f0f0, #d4d4d4);
+            color: #333;
+        }
+
+        .btndesign:hover, #zero:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .operator:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(238, 90, 36, 0.4);
+        }
+
+        .btndesign:active, .operator:active, #zero:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .clear-btn {
+            background: linear-gradient(145deg, #ff9ff3, #f368e0) !important;
+            color: white !important;
+        }
+
+        .equals-btn {
+            background: linear-gradient(145deg, #51cf66, #40c057) !important;
+            color: white !important;
+        }
+    </style>
+</head>
 <body>
- <h1> Online calculator</h1>
- <h2> By glad gaming</h2>
- <form name="form1" class="calc" method="POST">
- <input type="text" name="answer" id="display">
-</br>
-</br>
-<input type="button" class="btndesign" value="c" onclick="form1.answer.value=''">
- <input type="button" class="btndesign" value="<" onclick="form1.answer.value=form1.answer.value.substring(0,form1.answer.value.lengnth*1-1)">
- <input type="button" class="btndesign" value="/" onclick="form1.answer.value+='/'">
- <input type="button" class="operator" value="00" onclick="form1.answer.value+='00'">
-</br>
-</br>
- <input type="button" class="btndesign" value="7" onclick="form1.answer.value+='7'">
- <input type="button" class="btndesign" value="8" onclick="form1.answer.value+='8'">
- <input type="button" class="btndesign" value="9" onclick="form1.answer.value+='9'">
- <input type="button" class="operator" value="*" onclick="form1.answer.value+='*'">
-</br>
-</br>
- <input type="button" class="btndesign" value="4" onclick="form1.answer.value+='4'">
- <input type="button" class="btndesign" value="5" onclick="form1.answer.value+='5'">
- <input type="button" class="btndesign" value="6" onclick="form1.answer.value+='6'">
- <input type="button" class="operator" value="-" onclick="form1.answer.value+='-'">
-</br>
-</br>
- <input type="button" class="btndesign" value="1" onclick="form1.answer.value+='1'">
- <input type="button" class="btndesign" value="2" onclick="form1.answer.value+='2'">
- <input type="button" class="btndesign" value="3" onclick="form1.answer.value+='3'">
- <input type="button" class="operator" value="+" onclick="form1.answer.value+='+'">
-</br>
-</br>
- <input type="button" id="zero" value="0" onclick="form1.answer.value+='0'">
- <input type="button" class="btndesign" value="." onclick="form1.answer.value+='.'">
-  <input type="button" class="operator" value="=" onclick="form1.answer.value=eval(form1.answer.value)">
-</form>
+    <h1>Online Calculator</h1>
+    <h2>Laveen Kumar</h2>
+    
+    <form name="form1" class="calc">
+        <input type="text" name="answer" id="display" readonly>
+        
+        <div class="button-row">
+            <input type="button" class="btndesign clear-btn" value="C" onclick="clearDisplay()">
+            <input type="button" class="btndesign" value="⌫" onclick="backspace()">
+            <input type="button" class="operator" value="/" onclick="appendToDisplay('/')">
+            <input type="button" class="operator" value="00" onclick="appendToDisplay('00')">
+        </div>
+        
+        <div class="button-row">
+            <input type="button" class="btndesign" value="7" onclick="appendToDisplay('7')">
+            <input type="button" class="btndesign" value="8" onclick="appendToDisplay('8')">
+            <input type="button" class="btndesign" value="9" onclick="appendToDisplay('9')">
+            <input type="button" class="operator" value="×" onclick="appendToDisplay('*')">
+        </div>
+        
+        <div class="button-row">
+            <input type="button" class="btndesign" value="4" onclick="appendToDisplay('4')">
+            <input type="button" class="btndesign" value="5" onclick="appendToDisplay('5')">
+            <input type="button" class="btndesign" value="6" onclick="appendToDisplay('6')">
+            <input type="button" class="operator" value="-" onclick="appendToDisplay('-')">
+        </div>
+        
+        <div class="button-row">
+            <input type="button" class="btndesign" value="1" onclick="appendToDisplay('1')">
+            <input type="button" class="btndesign" value="2" onclick="appendToDisplay('2')">
+            <input type="button" class="btndesign" value="3" onclick="appendToDisplay('3')">
+            <input type="button" class="operator" value="+" onclick="appendToDisplay('+')">
+        </div>
+        
+        <div class="button-row">
+            <input type="button" id="zero" value="0" onclick="appendToDisplay('0')">
+            <input type="button" class="btndesign" value="." onclick="appendToDisplay('.')">
+            <input type="button" class="operator equals-btn" value="=" onclick="calculate()">
+        </div>
+    </form>
+
+    <script>
+        function appendToDisplay(value) {
+            document.form1.answer.value += value;
+        }
+
+        function clearDisplay() {
+            document.form1.answer.value = '';
+        }
+
+        function backspace() {
+            let current = document.form1.answer.value;
+            document.form1.answer.value = current.substring(0, current.length - 1);
+        }
+
+        function calculate() {
+            try {
+                let expression = document.form1.answer.value;
+                if (expression === '') return;
+                
+
+                expression = expression.replace(/×/g, '*');
+                
+                let result = eval(expression);
+                document.form1.answer.value = result;
+            } catch (error) {
+                document.form1.answer.value = 'Error';
+                setTimeout(() => {
+                    document.form1.answer.value = '';
+                }, 1500);
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if ('0123456789'.includes(key)) {
+                appendToDisplay(key);
+            } else if ('+-*/'.includes(key)) {
+                appendToDisplay(key);
+            } else if (key === '.') {
+                appendToDisplay('.');
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (key === 'Escape' || key.toLowerCase() === 'c') {
+                clearDisplay();
+            } else if (key === 'Backspace') {
+                event.preventDefault();
+                backspace();
+            }
+        });
+    </script>
 </body>
 </html>
